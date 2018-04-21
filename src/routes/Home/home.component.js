@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { Container, UserLoginBox, UserButton, UserInput } from "./home.style";
+import {
+    Container,
+    UserLoginBox,
+    UserButton,
+    UserInput,
+    UsersContainer
+} from "./home.style";
 import { Wrapper } from "../../utils/styles/global.styles";
 import Header from "../../components/header/header.components";
 import Footer from "../../components/footer/footer.components";
@@ -9,11 +15,10 @@ import Footer from "../../components/footer/footer.components";
 class Home extends Component {
     state = {
         users: [],
-        userValue: ''
+        userValue: ' ',
     };
 
     addNewUser = () => {
-        console.log(this.state.userValue);
         this.setState({
             users: [...this.state.users, this.state.userValue],
             userValue: ''
@@ -23,6 +28,10 @@ class Home extends Component {
     userOnChange = (event) => {
         this.setState({userValue: event.target.value});
     };
+
+
+    renderUsers = () => this.state.users.map((item) => <div>{item}</div>);
+
 
     render() {
         return (
@@ -37,6 +46,9 @@ class Home extends Component {
                             Add User
                         </UserButton>
                     </UserLoginBox>
+                    <UsersContainer>
+                        {this.renderUsers()}
+                    </UsersContainer>
                 </Wrapper>
 
                 <Footer />

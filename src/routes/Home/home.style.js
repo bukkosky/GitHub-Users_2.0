@@ -33,3 +33,6 @@ export const UserButton = styled.button`
         background: ${colors.medium}
     }
 `;
+
+export const UsersContainer = styled.div`
+`;
