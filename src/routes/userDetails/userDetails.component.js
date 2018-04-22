@@ -1,0 +1,57 @@
+import React, { Component } from 'react';
+
+// Config
+import { githubConfig} from '../../config/config';
+
+// Styles
+import {
+    Container,
+} from './userDetails.style';
+
+import { Wrapper } from '../../utils/styles/global.styles';
+
+// Components
+import Header from '../../components/header/header.components';
+import Footer from '../../components/footer/footer.components';
+
+class UserDetails extends Component {
+    state = {
+        details: {},
+    };
+
+    componentDidUpdate() {
+        console.log('current state', this.state);
+    }
+
+    componentDidMount() {
+        fetch(
+            githubConfig.apiUrl +
+            '/users/' +
+            this.props.match.params.userLogin +
+            '?client_id=' +
+            githubConfig.clientId +
+            '&client_secret=' +
+            githubConfig.clientSecret
+        )
+            .then(response => response.json())
+            .then(data => this.setState({
+                details: data,
+            }));
+    };
+
+    render() {
+        return (
+            <Container>
+                <Header/>
+
+                <Wrapper>
+                    {this.props.match.params.userLogin}
+                </Wrapper>
+
+                <Footer/>
+            </Container>
+        );
+    }
+}
+
+export default UserDetails;
